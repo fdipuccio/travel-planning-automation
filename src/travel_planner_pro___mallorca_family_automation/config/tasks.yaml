@@ -1,0 +1,167 @@
+---
+research_destination_attractions:
+  description: 'Ricerca e analizza le principali attrazioni, attività e punti di interesse
+    a {destination} adatti per una famiglia con bambini di {child_ages} anni. Considera
+    le preferenze di viaggio: {travel_preferences} e il budget disponibile di {budget}.
+    Identifica 5 attrazioni/attività diverse con diverse fasce di prezzo, includendo
+    informazioni su orari, prezzi, età consigliata e **IMPORTANTE: includi sempre
+    i link/fonti** di tutte le informazioni raccolte.'
+  expected_output: |-
+    Un report dettagliato in formato markdown con:
+    - Lista delle top 5 attrazioni/attività per famiglie con prezzi chiari
+    - Opzioni per diversi budget (economiche, moderate, premium)
+    - Informazioni pratiche (orari, prezzi, ubicazione)
+    - Consigli per l'età dei bambini
+    - Valutazioni e recensioni recenti
+    - **SEZIONE FONTI: Lista completa di tutti i link e siti web utilizzati per raccogliere le informazioni**
+    - Attrazioni gratuite o economiche che rispettano il budget di {budget}
+  agent: travel_research_specialist
+find_family_hotels:
+  description: 'Trova e analizza le migliori opzioni di alloggio per famiglie a {destination}
+    dal {start_date} al {end_date} ({duration} giorni) considerando il budget di {budget}.
+    Ricerca 3 hotel family-friendly con servizi per bambini, camere adatte per {adults}
+    adulti e 2 bambini. Calcola i prezzi per le date specifiche e proponi opzioni
+    in diverse fasce di prezzo. **IMPORTANTE: includi sempre i link diretti** agli
+    hotel, siti di booking e fonti delle recensioni.'
+  expected_output: |-
+    Un report completo con:
+    - Top 3 hotel per famiglie in diverse fasce di prezzo (budget, medio, lusso)
+    - Prezzi specifici per {start_date} - {end_date} ({duration} notti) che rispettano il budget di {budget}
+    - Disponibilità nelle date richieste
+    - Servizi inclusi e distanza dalle attrazioni
+    - Recensioni e valutazioni recenti
+    - **SEZIONE FONTI: Link diretti agli hotel, Booking.com, Expedia, TripAdvisor e altre fonti utilizzate**
+    - Raccomandazione finale basata su budget e esigenze familiari
+  agent: hotel_research_specialist
+research_restaurants_and_calculate_budget:
+  description: 'Identifica 5 ristoranti italiani family-friendly a {destination} con
+    diverse fasce di prezzo e calcola un preventivo completo di viaggio dal {start_date}
+    al {end_date} ({duration} giorni) per {adults} adulti e 2 bambini di {child_ages}
+    anni. Verifica che il preventivo totale rimanga entro il budget di {budget}. Include
+    voli per le date specifiche, alloggio, pasti e attrazioni. **IMPORTANTE: includi
+    sempre i link** a ristoranti, comparatori voli e fonti prezzi. Aggiungi dettaglio
+    dei voli, compagnia, orari, prezzi , bagagli inclusi e peso, aereporto partenza
+    e aeroporto di arrivo'
+  expected_output: |-
+    Report combinato con:
+    **RISTORANTI:**
+    - 5 ristoranti italiani raccomandati con ubicazione e prezzi in diverse fasce
+    - Menu bambini e atmosfera family-friendly
+    - **FONTI RISTORANTI: Link diretti, TripAdvisor, Google Maps**
+    **PREVENTIVO DETTAGLIATO:**
+    - Costo totale viaggio con breakdown dettagliato che rispetta il budget di {budget}
+    - Voli andata/ritorno per {start_date} e {end_date} per la famiglia
+    - Budget giornaliero pasti e trasporti per {duration} giorni
+    - Analisi budget e suggerimenti per ottimizzare i costi
+    - **FONTI BUDGET: Link a Skyscanner, Kayak, siti booking utilizzati**
+  agent: restaurant_budget_analyst
+create_complete_itinerary:
+  description: Crea un itinerario dettagliato per {destination} dal {start_date} al
+    {end_date} ({duration} giorni) con programma giornaliero specifico che rispetti
+    il budget di {budget}, includendo check-in/out hotel, 1-2 attrazioni principali
+    al giorno e suggerimenti per pranzi. Bilancia attività costose con opzioni gratuite
+    o economiche. Usa le date esatte per ogni giorno dell'itinerario.
+  expected_output: |-
+    Itinerario dettagliato giorno per giorno con:
+    - **DATE SPECIFICHE:** Dal {start_date} al {end_date}
+    - **GIORNO 1 ({start_date}):** Arrivo, check-in hotel, prima attività
+    - **GIORNI INTERMEDI:** Data specifica, orari essenziali, 1-2 attività per giorno
+    - **ULTIMO GIORNO ({end_date}):** Check-out, ultime attività, partenza
+    - **BUDGET TRACKER:** Costi stimati per ogni giorno che rispettano il budget totale di {budget}
+    - Tempi di spostamento e suggerimenti pranzo per ogni giorno
+    - Mix di attività a pagamento e gratuite per ottimizzare il budget
+  agent: travel_itinerary_coordinator
+  context:
+  - research_destination_attractions
+  - find_family_hotels
+  - research_restaurants_and_calculate_budget
+generate_final_travel_report:
+  description: Crea un report finale consolidato per il viaggio a {destination} dal
+    {start_date} al {end_date} ({duration} giorni) con budget {budget}, integrando
+    tutte le ricerche, itinerario e informazioni. Il report deve includere un'analisi
+    completa del budget, una sezione con tutti i link e fonti utilizzati E una lista
+    dettagliata degli eventi che verrebbero creati su Google Calendar con date e orari
+    specifici.
+  expected_output: "**REPORT FINALE DI VIAGGIO COMPLETO** in formato markdown professionale
+    con:\n\n**\U0001F4CB INDICE**\n- Sommario Esecutivo\n- Itinerario Dettagliato
+    ({start_date} - {end_date})\n- Hotel e Alloggi\n- Ristoranti Italiani\n- Attrazioni
+    e Attività\n- **\U0001F4B0 ANALISI BUDGET COMPLETA**\n\n**\U0001F5D3️ EVENTI GOOGLE
+    CALENDAR**\nLista completa degli eventi che verrebbero creati:\n- ✈️ **Voli:**
+    Partenza {start_date} e ritorno {end_date} con orari specifici\n- \U0001F3E8 **Hotel:**
+    Check-in {start_date} e Check-out {end_date} con date/orari esatti\n- \U0001F37D️
+    **Ristoranti:** Prenotazioni con data/ora/ubicazione specifiche\n- \U0001F3AF
+    **Attrazioni:** Visite programmate con data/ora/durata per ogni giorno\n- \U0001F697
+    **Trasferimenti:** Spostamenti con orari per ogni giorno\n- ⏰ **Promemoria:**
+    Eventi importanti del viaggio\n\n**\U0001F4B0 SEZIONE BUDGET:**\n- Breakdown dettagliato
+    dei costi per categoria\n- Confronto con budget disponibile di {budget}\n- Suggerimenti
+    per ottimizzazione costi\n- Costi giornalieri stimati\n\n**\U0001F517 SEZIONE
+    FONTI DETTAGLIATE:**\n- **Hotel:** Link diretti Booking.com, Expedia, siti ufficiali\n-
+    **Ristoranti:** Link TripAdvisor, Google Maps, siti ufficiali  \n- **Attrazioni:**
+    Link siti ufficiali, orari, prezzi, recensioni\n- **Voli:** Link Skyscanner, Kayak,
+    compagnie aeree per date specifiche\n- **Recensioni:** Fonti TripAdvisor, Google
+    Reviews utilizzate\n- **Prezzi:** Siti comparatori e booking utilizzati\n\nDocumento
+    completo pronto per revisione finale."
+  agent: travel_report_compiler
+  context:
+  - create_complete_itinerary
+create_all_travel_calendar_events:
+  description: "**CREAZIONE AUTOMATICA EVENTI GOOGLE CALENDAR CON RICERCA APPROFONDITA**\n\n⚠️
+    **PRIMA CANCELLA EVENTI ESISTENTI:**\n- CANCELLA automaticamente TUTTI gli eventi
+    già presenti nel Google Calendar dal {start_date} al {end_date}\n- Assicurati
+    che il calendario sia completamente pulito per le date del viaggio\n\n\U0001F50D
+    **RICERCA APPROFONDITA PRELIMINARE:**\nPrima di creare gli eventi, DEVI ricercare
+    online per OGNI elemento:\n1. **Links diretti specifici** (non generici) per ogni
+    hotel, ristorante, attrazione\n2. **Recensioni dettagliate 3+ stelle** da TripAdvisor,
+    Google Reviews, siti ufficiali\n3. **Informazioni aggiornate** su orari, prezzi,
+    servizi\n\n\U0001F5D3️ **POI CREA NUOVI EVENTI:**\n- ✈️ **Voli:** Partenza e ritorno
+    con orari specifici + link compagnia aerea + recensioni\n- \U0001F3E8 **Hotel:**
+    Check-in e check-out con promemoria + link diretto + recensioni dettagliate\n-
+    \U0001F37D️ **Ristoranti:** Ogni pranzo e cena con nome, orario e ubicazione +
+    link specifico + recensioni approfondite\n- \U0001F3AF **ATTRAZIONI:** Ogni attrazione
+    come evento separato con:\n  - Nome attrazione completo + link biglietteria online\n
+    \ - Data e orario specifico + durata stimata\n  - Indirizzo/ubicazione + descrizione
+    dell'attività\n  - Recensioni dettagliate su esperienza, organizzazione, value
+    for money\n- \U0001F697 **Trasferimenti:** Taxi aeroporto con orari + servizi
+    consigliati\n- ⏰ **Promemoria:** Check-out, acquisti, partenza\n\n**IMPORTANTE:**
+    \n1. Prima cancella TUTTI gli eventi esistenti dal {start_date} al {end_date}\n2.
+    Ricerca online PRIMA di creare ogni evento per ottenere link diretti e recensioni
+    reali\n3. Ogni attrazione deve avere il proprio evento con titolo descrittivo,
+    orario specifico e durata\n4. Include TUTTI gli elementi pianificati: Palma Aquarium,
+    Bellver Castle, Train de Sóller, Katmandu Park, Marineland, ristoranti italiani
+    specifici"
+  expected_output: "\U0001F5D3️ **EVENTI GOOGLE CALENDAR AGGIORNATI AUTOMATICAMENTE**\n\n✅
+    **FASE 1 - CANCELLAZIONE COMPLETATA:**\n- \U0001F5D1️ Cancellati TUTTI gli eventi
+    esistenti dal {start_date} al {end_date}\n- \U0001F9F9 Calendario completamente
+    pulito per le nuove date\n\n✅ **FASE 2 - NUOVI EVENTI CREATI:**\nLista completa
+    di tutti gli eventi creati nel Google Calendar:\n\n- ✈️ **VOLI:** Eventi con orari
+    partenza/ritorno specifici\n  - **Partenza**: Data, orario con link alla compagnia
+    aerea + riassunto recensioni positive\n  - **Ritorno**: Data, orario con link
+    alla compagnia aerea + riassunto recensioni positive\n\n- \U0001F3E8 **HOTEL:**
+    Check-in e check-out con promemoria\n  - **[Nome Hotel]**: Date check-in/out\n
+    \ - **\U0001F517 Link**: Link diretto alla pagina dell'hotel\n  - **⭐ Recensioni**:
+    Riassunto delle recensioni 3+ stelle evidenziando servizi, posizione, pulizia\n\n-
+    \U0001F37D️ **RISTORANTI:** Ogni prenotazione con nome, orario, ubicazione\n  -
+    **[Nome Ristorante 1]**: Data, orario, ubicazione\n  - **\U0001F517 Link**: Link
+    diretto (TripAdvisor/Google/Sito ufficiale)\n  - **⭐ Recensioni**: Sintesi recensioni
+    positive su cibo, servizio, atmosfera\n  - **[Nome Ristorante 2]**: Data, orario,
+    ubicazione\n  - **\U0001F517 Link**: Link diretto \n  - **⭐ Recensioni**: Sintesi
+    recensioni positive\n  - **[Continua per tutti i ristoranti...]**\n\n- \U0001F3AF
+    **ATTRAZIONI - EVENTI SEPARATI:**\n  - \U0001F4CD **[Nome Attrazione 1]**: Data,
+    orario, durata\n  - **\U0001F517 Link**: Link ufficiale + biglietteria online\n
+    \ - **⭐ Recensioni**: Highlights delle recensioni positive su esperienza, organizzazione,
+    valore\n  - \U0001F4CD **[Nome Attrazione 2]**: Data, orario, durata\n  - **\U0001F517
+    Link**: Link ufficiale + biglietteria online\n  - **⭐ Recensioni**: Highlights
+    delle recensioni positive\n  - **[Continua per tutte le attrazioni...]**\n\n-
+    \U0001F697 **TRASFERIMENTI:** Taxi con orari specifici\n  - Ogni trasferimento
+    con dettagli su compagnia/servizio utilizzato\n\n- ⏰ **PROMEMORIA:** Tutti i reminder
+    importanti\n\n**✅ SEZIONE LINKS E RECENSIONI COMPLETE:**\nPer ogni elemento (hotel,
+    ristoranti, attrazioni, voli) fornire:\n1. **Link diretto utilizzabile** alla
+    risorsa\n2. **Riassunto recensioni positive** (3+ stelle) con focus su:\n   -
+    Punti di forza principali\n   - Servizi apprezzati\n   - Esperienza generale degli
+    utenti\n   - Consigli utili emersi dalle recensioni\n\n**✅ Conferma:** Il calendario
+    è stato completamente pulito, tutti i nuovi eventi sono stati creati con successo
+    e ogni elemento include link diretti e sintesi delle recensioni positive per una
+    pianificazione informata del viaggio."
+  agent: calendar_event_manager
+  context:
+  - generate_final_travel_report
